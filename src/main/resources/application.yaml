@@ -1,0 +1,29 @@
+server:
+  port: 8000
+
+spring:
+  application:
+    name: springboot-demo-app
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/user_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+    username: root
+    password: root
+
+  jpa:
+    hibernate:
+      ddl-auto: update   # Automatically create/update tables from entities
+    show-sql: true       # Show SQL queries in console
+    properties:
+      hibernate:
+        format_sql: true # Format SQL nicely in logs
+
+  jackson:
+    serialization:
+      fail-on-empty-beans: false
+
+logging:
+  level:
+    org.hibernate.SQL: debug                # Log SQL queries
+    org.hibernate.orm.jdbc.bind: trace      # Log bound parameters
+    org.springframework.web: info           # Optional: log web requests

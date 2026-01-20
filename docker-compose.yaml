@@ -1,0 +1,32 @@
+version: "3.9"
+
+services:
+  mysql:
+    image: mysql:8.4
+   
+    restart: always
+    environment:
+      MYSQL_DATABASE: user_db
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3306:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p$MYSQL_ROOT_PASSWORD"]
+      interval: 5s
+      retries: 5
+      timeout: 3s
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: demo-app:latest
+    container_name: springboot-app
+    ports:
+      - "8000:8000"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+
