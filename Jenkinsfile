@@ -32,7 +32,7 @@ pipeline {
 
         stage('Push Docker Image') {
             steps {
-                withDockerRegistry(credentialsId: 'Docker-Creds', url: '') {
+                withDockerRegistry(credentialsId: 'Docker-Cred', url: '') {
                     sh '''
                       docker tag ${IMAGE_NAME}:latest ${DOCKERHUB_REPO}:latest
                       docker push ${DOCKERHUB_REPO}:latest
