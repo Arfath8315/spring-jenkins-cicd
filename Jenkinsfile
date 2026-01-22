@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         IMAGE_NAME = "demo-app"
-        DOCKERHUB_REPO = "mohdmaaz777/demo-app"
+        DOCKERHUB_REPO = "arfath8315/demo-app"
     }
 
     stages {
