@@ -16,7 +16,7 @@ pipeline {
 
         stage('Package') {
             steps {
-                sh '''
+                bat '''
                   mvn clean package -DskipTests
                 '''
             }
@@ -24,7 +24,7 @@ pipeline {
 
         stage('Docker Build') {
             steps {
-                sh '''
+                bat '''
                   docker build -t ${IMAGE_NAME}:latest .
                 '''
             }
@@ -33,7 +33,7 @@ pipeline {
         stage('Push Docker Image') {
             steps {
                 withDockerRegistry(credentialsId: 'Docker-Cred', url: '') {
-                    sh '''
+                    bat '''
                       docker tag ${IMAGE_NAME}:latest ${DOCKERHUB_REPO}:latest
                       docker push ${DOCKERHUB_REPO}:latest
                     '''
@@ -43,7 +43,7 @@ pipeline {
 
         stage('Deploy with Docker Compose') {
             steps {
-                sh '''
+                bat '''
                   docker compose down || true
                   docker compose up -d --build
                 '''
